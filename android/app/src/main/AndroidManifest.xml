@@ -4,6 +4,9 @@
         android:label="binmatesapp"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+                <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyAJtIUDr36B31ChHpFwLI_zw1dLuGiqxgQ"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

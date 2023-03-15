@@ -19,8 +19,8 @@ class _ClientListState extends State<ClientList> {
         email: 'john@email.com',
         phone: '1234567890',
         address: '123 Main St',
-        longitude: 0.0,
-        latitude: 0.0,
+        longitude: -122.803,
+        latitude: 49.3255,
         garbage: "Unavailable"),
     Client(
         id: 2,
@@ -28,8 +28,8 @@ class _ClientListState extends State<ClientList> {
         email: 'Jane@emai.com',
         phone: '1234567890',
         address: '123 Main St',
-        longitude: 0.0,
-        latitude: 0.0,
+        longitude: 123.133568,
+        latitude: 49.3255,
         garbage: "Available "),
     Client(
         id: 3,
@@ -37,8 +37,8 @@ class _ClientListState extends State<ClientList> {
         email: 'Joe@email.com',
         phone: '1234567890',
         address: '123 Main St',
-        longitude: 0.0,
-        latitude: 0.0,
+        longitude: -123.116226,
+        latitude: 49.346292,
         garbage: "Finished by"),
   ];
 

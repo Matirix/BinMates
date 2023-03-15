@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ClientDetails extends StatefulWidget {
   const ClientDetails({super.key});
@@ -116,9 +117,26 @@ class _ClientDetailsState extends State<ClientDetails> {
                               dropdownValue = value!;
                             });
                           },
-                        )
+                        ),
                       ]),
                   const SizedBox(height: 20.0),
+                  SizedBox(
+                    height: 350,
+                    child: GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(
+                            clientData['latitude'], clientData['longitude']),
+                        zoom: 11.0,
+                      ),
+                      markers: {
+                        Marker(
+                          markerId: const MarkerId('client'),
+                          position: LatLng(
+                              clientData['latitude'], clientData['longitude']),
+                        ),
+                      },
+                    ),
+                  ),
                 ],
               ),
             ],
