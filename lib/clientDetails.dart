@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ClientDetails extends StatefulWidget {
   const ClientDetails({super.key});
@@ -9,14 +7,22 @@ class ClientDetails extends StatefulWidget {
   State<ClientDetails> createState() => _ClientDetailsState();
 }
 
+const List<String> statusList = <String>[
+  'Unavailable',
+  'Available',
+  'In-progress',
+  'Completed'
+];
+
 class _ClientDetailsState extends State<ClientDetails> {
   Map clientData = {};
 
+  String dropdownValue = statusList.first;
+
   @override
   Widget build(BuildContext context) {
+    // GETS THE CLIENT DATA FROM CLIENTLIST.DART WHEN USER PRESSES ON LISTITEM
     clientData = ModalRoute.of(context)!.settings.arguments as Map;
-
-    print(clientData);
 
     return Scaffold(
         appBar: AppBar(
@@ -27,71 +33,94 @@ class _ClientDetailsState extends State<ClientDetails> {
         body: Container(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            children: const [
-              Text(
-                'Client Details',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const SizedBox(width: 20.0),
+                  Text(
+                    "${clientData['address']}",
+                    style: const TextStyle(
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 20.0),
-              Text(
-                'Name: ',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
+              const SizedBox(height: 20.0),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                //  BASIC CLIENT INFO
+                children: <Widget>[
+                  const SizedBox(width: 20.0),
+                  Text(
+                    "Name: ${clientData['name']}",
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                      // fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  Text(
+                    "Email: ${clientData['email']}",
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                      // fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  Text(
+                    "Phone: ${clientData['phone']}",
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  const Divider(
+                    thickness: 2.0,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  // GARBAGE AVAILABILITY
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        const Text(
+                          'Garbage: ',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                          ),
+                        ),
+                        // DROPDOWN OPTIONS
+                        DropdownButton<String>(
+                          borderRadius: BorderRadius.circular(15),
+                          value: dropdownValue,
+                          icon: const Icon(Icons.arrow_downward,
+                              color: Colors.green),
+                          style: const TextStyle(color: Colors.black),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.grey,
+                          ),
+                          items: statusList
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              dropdownValue = value!;
+                            });
+                          },
+                        )
+                      ]),
+                  const SizedBox(height: 20.0),
+                ],
               ),
-              SizedBox(height: 20.0),
-              Text(
-                'Email: ',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20.0),
-              Text(
-                'Phone: ',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20.0),
-              Text(
-                'Address: ',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20.0),
-              Text(
-                'Garbage: ',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20.0),
-              Text(
-                'Longitude: ',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20.0),
-              Text(
-                'Latitude: ',
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20.0),
             ],
           ),
         ));
