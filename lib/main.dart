@@ -1,4 +1,5 @@
 import 'package:binmatesapp/clientDetails.dart';
+import 'package:binmatesapp/clientMap.dart';
 import 'package:flutter/material.dart';
 import 'clientList.dart';
 
@@ -24,10 +25,14 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
+        backgroundColor: const Color(0xFFFFFEF7),
+
         primarySwatch: Colors.blue,
+        fontFamily: 'Chivo',
       ),
-      home: const ClientList(),
+      home: MapScreen(),
       routes: {
+        '/bins': (context) => MapScreen(),
         '/clientList': (context) => const ClientList(),
         '/clientDetails': (context) => const ClientDetails(),
       },
