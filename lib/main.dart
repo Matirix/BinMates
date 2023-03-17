@@ -1,5 +1,6 @@
 import 'package:binmatesapp/clientDetails.dart';
 import 'package:binmatesapp/clientMap.dart';
+import 'package:binmatesapp/navBar.dart';
 import 'package:flutter/material.dart';
 import 'clientList.dart';
 
@@ -30,8 +31,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Chivo',
       ),
-      home: MapScreen(),
+      home: const NavBar(),
       routes: {
+        '/Navbar': (context) => const NavBar(),
         '/bins': (context) => MapScreen(),
         '/clientList': (context) => const ClientList(),
         '/clientDetails': (context) => const ClientDetails(),

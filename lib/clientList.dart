@@ -1,3 +1,4 @@
+import 'package:binmatesapp/customAppBar.dart';
 import 'package:flutter/material.dart';
 import 'client.dart';
 
@@ -51,11 +52,7 @@ class _ClientListState extends State<ClientList> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[200],
-        appBar: AppBar(
-          title: const Text('Clients'),
-          centerTitle: true,
-          backgroundColor: Colors.greenAccent[700],
-        ),
+        appBar: const CustomAppBar(title: "Routes"),
         body: ListView.builder(
           itemCount: clients.length,
           itemBuilder: (context, index) {

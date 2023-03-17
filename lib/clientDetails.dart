@@ -1,3 +1,4 @@
+import 'package:binmatesapp/customAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -26,11 +27,7 @@ class _ClientDetailsState extends State<ClientDetails> {
     clientData = ModalRoute.of(context)!.settings.arguments as Map;
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Client Details'),
-          centerTitle: true,
-          backgroundColor: Colors.greenAccent[700],
-        ),
+        appBar: const CustomAppBar(title: "Details"),
         body: Container(
           padding: const EdgeInsets.all(20.0),
           child: Column(

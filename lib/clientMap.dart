@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'clientList.dart';
+import 'customAppBar.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -12,11 +13,6 @@ class _MapScreenState extends State<MapScreen> {
   Set<Marker> _markers = {};
   Set<Marker> _selectedMarkers = {};
   Marker? _selectedMarker;
-
-  // final screens = [
-  //   MapScreen(),
-  //   ClientList(),
-  // ];
 
   void _onMarkerTapped(Marker marker) {
     setState(() {
@@ -53,26 +49,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(
-            icon: const ImageIcon(
-              AssetImage('images/BinMates-Logos_Initials.png'),
-              size: 45,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          title: const Text(
-            'Map',
-            style: TextStyle(
-              fontFamily: 'Chivo',
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF00AD00)),
+      appBar: const CustomAppBar(title: "Bin Hunt"),
       body: Column(
         children: [
           // Expanded(
@@ -201,24 +178,6 @@ class _MapScreenState extends State<MapScreen> {
                   ))),
           // screens[index],
         ],
-      ),
-      bottomNavigationBar: NavigationBarTheme(
-        data: NavigationBarThemeData(
-          indicatorColor: Colors.green[800],
-        ),
-        child: NavigationBar(
-            // selectedIndex: index,
-            // onDestinationSelected: (index) => setState(() {
-            //       // this.index = index;
-            //       print(index);
-            //     }),
-            destinations: const [
-              NavigationDestination(
-                  icon: Icon(Icons.add_location_alt), label: "Bin Hunt"),
-              NavigationDestination(
-                  icon: Icon(Icons.arrow_forward_ios_outlined),
-                  label: "Routes"),
-            ]),
       ),
     );
   }
