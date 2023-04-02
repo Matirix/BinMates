@@ -64,6 +64,7 @@ flutter:
   assets:
     - images/BinMates-Logos_RGB.png
     - images/BinMates-Logos_Initials.png
+    - images/Bear.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

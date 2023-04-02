@@ -3,6 +3,7 @@ import 'package:binmatesapp/clientMap.dart';
 import 'package:binmatesapp/navBar.dart';
 import 'package:flutter/material.dart';
 import 'clientList.dart';
+import 'logIn.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,12 +32,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Chivo',
       ),
-      home: const NavBar(),
+      home: const Login(),
       routes: {
         '/Navbar': (context) => const NavBar(),
         '/bins': (context) => MapScreen(),
         '/clientList': (context) => const ClientList(),
         '/clientDetails': (context) => const ClientDetails(),
+        '/login': (context) => const Login()
       },
     );
   }
