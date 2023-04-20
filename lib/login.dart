@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'package:binmatesapp/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -35,18 +36,21 @@ class _LoginState extends State<Login> {
                 width: 300,
                 height: 300,
               ),
-              const Text(
-                'Login',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+              const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 28,
+                  ),
                 ),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                 child: TextField(
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     hintText: 'Email',
                   ),
                 ),
@@ -55,7 +59,8 @@ class _LoginState extends State<Login> {
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                 child: TextField(
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     hintText: 'Password',
                   ),
                 ),
@@ -95,10 +100,15 @@ class _LoginState extends State<Login> {
                 ),
               ),
               const SizedBox(height: 5.0),
-              const Text(
-                'Don\'t have an account?',
-                style: TextStyle(
-                  color: Colors.blue,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/signup');
+                },
+                child: const Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    color: Colors.blue,
+                  ),
                 ),
               )
             ],
