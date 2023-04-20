@@ -1,5 +1,6 @@
 import 'dart:ffi';
 import 'package:binmatesapp/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,16 +18,17 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // Future<void> signInWithEmailAndPassword() async {
-  //   try {
-  //     await Auth().signIn(
-  //         email: _emailController.text, password: _passwordController.text);
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: (context) => const NavBar()));
-  //   } on FirebaseAuthException catch (e) {
-  //     print(e.message);
-  //   }
-  // }
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      await Auth().signIn(
+          email: _emailController.text, password: _passwordController.text);
+      print('Signed in');
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const NavBar()));
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,11 +98,12 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const NavBar()
-                            // builder: (context) => const ClientDetails(),
-                            ));
+                    signInWithEmailAndPassword();
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => const NavBar()
+                    //         // builder: (context) => const ClientDetails(),
+                    //         ));
                   },
                   child: const Text('Login'),
                 ),
