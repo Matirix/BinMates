@@ -13,6 +13,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  void _login() {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    // Use the above variables to parse the data into Firebase
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,20 +54,24 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     hintText: 'Email',
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
                     hintText: 'Password',
