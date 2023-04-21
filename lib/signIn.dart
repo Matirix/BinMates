@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'navBar.dart';
+import 'dart:developer';
 import 'auth.dart';
 
 class Login extends StatefulWidget {
@@ -18,13 +19,22 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future<void> signInWithEmailAndPassword() async {
+  // Future<void> signInWithEmailAndPassword() async {
+  //   debugPrint('Signing in');
+  //   try {
+  //     await Auth().signIn(
+  //         email: _emailController.text, password: _passwordController.text);
+  //     debugPrint('Signed in');
+  //     // Navigator.push(
+  //     //     context, MaterialPageRoute(builder: (context) => const NavBar()));
+  //   } on FirebaseAuthException catch (e) {
+  //     print(e.message);
+  //   }
+  // }
+  Future<void> signIn() async {
     try {
-      await Auth().signIn(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
-      print('Signed in');
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const NavBar()));
     } on FirebaseAuthException catch (e) {
       print(e.message);
     }
@@ -90,23 +100,18 @@ class _LoginState extends State<Login> {
               SizedBox(
                 width: 100,
                 height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00AD00),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                  ),
-                  onPressed: () {
-                    signInWithEmailAndPassword();
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => const NavBar()
-                    //         // builder: (context) => const ClientDetails(),
-                    //         ));
-                  },
-                  child: const Text('Login'),
-                ),
+                // child: ElevatedButton(
+                //   style: ElevatedButton.styleFrom(
+                //     backgroundColor: const Color(0xFF00AD00),
+                //     shape: const RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.all(Radius.circular(10)),
+                //     ),
+                //   ),
+                //   onPressed: () async {
+                //     await signIn();
+                //   },
+                //   child: const Text('Login'),
+                // ),
               ),
               const SizedBox(height: 10.0),
               const SizedBox(

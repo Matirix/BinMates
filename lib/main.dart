@@ -2,11 +2,15 @@ import 'package:binmatesapp/clientDetails.dart';
 import 'package:binmatesapp/clientMap.dart';
 import 'package:binmatesapp/navBar.dart';
 import 'package:binmatesapp/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'clientList.dart';
 import 'login.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -33,7 +37,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Chivo',
       ),
-      home: const SignUp(),
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const NavBar();
+          } else {
+            return const Login();
+          }
+        },
+      ),
       routes: {
         '/Navbar': (context) => const NavBar(),
         '/bins': (context) => MapScreen(),
