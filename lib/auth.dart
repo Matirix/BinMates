@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'databaseinterface.dart';
+
 class Auth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
@@ -18,24 +20,27 @@ class Auth {
     }
   }
 
-  Future<String> signUp(
+  Future<void> signUp(
       {required String email,
       required String password,
       String? firstName,
       String? lastName,
       String? phoneNumber,
       String? accessCode}) async {
-    try {
-      await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((result) {
-        result.user!.updateDisplayName(firstName!);
-      });
+    UserCredential userCredential = await _firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password);
+    // Updating Display Name
+    await userCredential.user!.updateProfile(displayName: firstName);
 
-      return "Signed up";
-    } on FirebaseAuthException catch (e) {
-      return e.message!;
-    }
+    Map<String, dynamic> userInfoMap = {
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email,
+      "phoneNumber": phoneNumber,
+      "accessCode": accessCode,
+    };
+
+    await DBInterface().addUserInfo(userCredential.user!.uid, userInfoMap);
   }
 
   Future<void> signOut() async {
