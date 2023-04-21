@@ -1,8 +1,9 @@
 import 'package:binmatesapp/signIn.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-
+import 'auth.dart';
 import 'navBar.dart';
 
 class SignUp extends StatefulWidget {
@@ -20,14 +21,25 @@ class _SignUpState extends State<SignUp> {
   final _passwordController = TextEditingController();
   final _accessCodeController = TextEditingController();
 
-  void _signUp() {
-    String firstName = _firstNameController.text;
-    String lastName = _lastNameController.text;
-    String email = _emailController.text;
-    String phoneNumber = _phoneNumberController.text;
-    String password = _passwordController.text;
-    String accessCode = _accessCodeController.text;
-    // Use the above variables to parse the data into Firebase
+  Future<void> _signUp() async {
+    //   String firstName = _firstNameController.text;
+    // String lastName = _lastNameController.text;
+    // String email = _emailController.text;
+    // String phoneNumber = _phoneNumberController.text;
+    // String password = _passwordController.text;
+    // String accessCode = _accessCodeController.text;
+
+    try {
+      await Auth().signUp(
+          email: _emailController.text,
+          password: _passwordController.text,
+          firstName: _firstNameController.text,
+          lastName: _lastNameController.text,
+          phoneNumber: _phoneNumberController.text,
+          accessCode: _accessCodeController.text);
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+    }
   }
 
   @override
@@ -139,8 +151,8 @@ class _SignUpState extends State<SignUp> {
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                   ),
-                  onPressed: () {
-                    _signUp();
+                  onPressed: () async {
+                    await _signUp();
                     Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => const NavBar()

@@ -19,24 +19,12 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // Future<void> signInWithEmailAndPassword() async {
-  //   debugPrint('Signing in');
-  //   try {
-  //     await Auth().signIn(
-  //         email: _emailController.text, password: _passwordController.text);
-  //     debugPrint('Signed in');
-  //     // Navigator.push(
-  //     //     context, MaterialPageRoute(builder: (context) => const NavBar()));
-  //   } on FirebaseAuthException catch (e) {
-  //     print(e.message);
-  //   }
-  // }
   Future<void> signIn() async {
     try {
       await Auth().signIn(
           email: _emailController.text, password: _passwordController.text);
     } on FirebaseAuthException catch (e) {
-      print(e.message);
+      SnackBar(content: Text(e.message!));
     }
   }
 

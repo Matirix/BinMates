@@ -19,10 +19,19 @@ class Auth {
   }
 
   Future<String> signUp(
-      {required String email, required String password}) async {
+      {required String email,
+      required String password,
+      String? firstName,
+      String? lastName,
+      String? phoneNumber,
+      String? accessCode}) async {
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      await _firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((result) {
+        result.user!.updateDisplayName(firstName!);
+      });
+
       return "Signed up";
     } on FirebaseAuthException catch (e) {
       return e.message!;

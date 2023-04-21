@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'clientList.dart';
@@ -11,6 +12,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
+  final user = FirebaseAuth.instance.currentUser;
   int index = 0;
   final Set<Marker> _markers = {};
   final Set<Marker> _selectedMarkers = {};
@@ -73,6 +75,19 @@ class _MapScreenState extends State<MapScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(
+            height: 60,
+            // padding: const EdgeInsets.all(12.0),
+            child: Container(
+              alignment: Alignment.center,
+              child: Text(
+                user?.email ?? 'No user',
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
           // Expanded(
           //   flex: 1,
           //   child: ListView.builder(
