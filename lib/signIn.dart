@@ -33,7 +33,7 @@ class _LoginState extends State<Login> {
   // }
   Future<void> signIn() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await Auth().signIn(
           email: _emailController.text, password: _passwordController.text);
     } on FirebaseAuthException catch (e) {
       print(e.message);
@@ -49,8 +49,6 @@ class _LoginState extends State<Login> {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 100.0),
               const Image(
@@ -100,18 +98,18 @@ class _LoginState extends State<Login> {
               SizedBox(
                 width: 100,
                 height: 50,
-                // child: ElevatedButton(
-                //   style: ElevatedButton.styleFrom(
-                //     backgroundColor: const Color(0xFF00AD00),
-                //     shape: const RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(10)),
-                //     ),
-                //   ),
-                //   onPressed: () async {
-                //     await signIn();
-                //   },
-                //   child: const Text('Login'),
-                // ),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF00AD00),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                  ),
+                  onPressed: () async {
+                    await signIn();
+                  },
+                  child: const Text('Login'),
+                ),
               ),
               const SizedBox(height: 10.0),
               const SizedBox(
