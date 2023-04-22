@@ -38,6 +38,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             Auth().signOut();
           },
         ),
+        IconButton(
+            onPressed: () => Navigator.pushNamed(context, '/addBin'),
+            icon: const Icon(Icons.add)),
       ],
     );
   }

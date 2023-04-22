@@ -1,6 +1,8 @@
 import 'package:binmatesapp/customAppBar.dart';
+import 'package:binmatesapp/databaseinterface.dart';
 import 'package:flutter/material.dart';
 import 'client.dart';
+import 'models/marker_model.dart';
 
 // My routes class
 class ClientList extends StatefulWidget {
@@ -13,6 +15,20 @@ class ClientList extends StatefulWidget {
 class _ClientListState extends State<ClientList> {
   // static const IconData circle_sharp =
   //     IconData(0xe861, fontFamily: 'MaterialIcons');
+  List bins = [];
+  @override
+  initState() {
+    super.initState();
+    loadBins();
+  }
+
+  void loadBins() {
+    DBInterface().getBinInfo().then((value) {
+      setState(() {
+        bins = value;
+      });
+    });
+  }
 
   List<Client> clients = [
     Client(
@@ -45,7 +61,7 @@ class _ClientListState extends State<ClientList> {
   ];
 
   Widget clientCardTemplate(client) {
-    return CardTemplate(client: client);
+    return CardTemplate(marker: client);
   }
 
   @override
@@ -54,9 +70,9 @@ class _ClientListState extends State<ClientList> {
         backgroundColor: Colors.grey[200],
         appBar: const CustomAppBar(title: "Routes"),
         body: ListView.builder(
-          itemCount: clients.length,
+          itemCount: bins.length,
           itemBuilder: (context, index) {
-            return CardTemplate(client: clients[index]);
+            return CardTemplate(marker: bins[index]);
           },
         ));
   }
@@ -71,9 +87,9 @@ class _ClientListState extends State<ClientList> {
 //     .toList(),
 
 class CardTemplate extends StatelessWidget {
-  final Client client;
+  final MarkerModel marker;
 
-  const CardTemplate({super.key, required this.client});
+  const CardTemplate({super.key, required this.marker});
 
   @override
   Widget build(BuildContext context) {
@@ -84,22 +100,22 @@ class CardTemplate extends StatelessWidget {
           // This could be an image over here
           children: const <Widget>[Icon(Icons.person)],
         ),
-        title: Text(client.name),
+        title: Text(marker.binName),
         subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[Text(client.address), Text(client.garbage)]),
+            children: <Widget>[Text(marker.binAddress), Text(marker.binName)]),
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
-          Navigator.pushNamed(context, '/clientDetails', arguments: {
-            'id': client.id,
-            'name': client.name,
-            'email': client.email,
-            'phone': client.phone,
-            'address': client.address,
-            'longitude': client.longitude,
-            'latitude': client.latitude,
-            'garbage': client.garbage,
-          });
+          // Navigator.pushNamed(context, '/clientDetails', arguments: {
+          //   'id': client.id,
+          //   'name': client.name,
+          //   'email': client.email,
+          //   'phone': client.phone,
+          //   'address': client.address,
+          //   'longitude': client.longitude,
+          //   'latitude': client.latitude,
+          //   'garbage': client.garbage,
+          // });
         },
       ),
     );

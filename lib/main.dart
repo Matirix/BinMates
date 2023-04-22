@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'Utils.dart';
+import 'addBin.dart';
 import 'clientList.dart';
 import 'signin.dart';
 
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
           if (snapshot.hasData) {
             return const MapScreen();
           } else {
-            return const Login();
+            return const NavBar();
           }
         },
       ),
@@ -59,6 +60,7 @@ class MyApp extends StatelessWidget {
         '/clientDetails': (context) => const ClientDetails(),
         '/login': (context) => const Login(),
         '/signup': (context) => const SignUp(),
+        '/addBin': (context) => const AddBinAdmin(),
       },
     );
   }
