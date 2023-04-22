@@ -16,12 +16,18 @@ class AddBinAdmin extends StatefulWidget {
   State<AddBinAdmin> createState() => _AddBinAdminState();
 }
 
+//Drop down menu
+List<String> status = ['To-do', 'In-progress', 'Uploaded', 'Completed'];
+// List<String> status = ['To-x', 'In-', 'x', 'y'];
+
 class _AddBinAdminState extends State<AddBinAdmin> {
   final formKey = GlobalKey<FormState>();
   final _binNameController = TextEditingController();
   final _binAddressController = TextEditingController();
   final _binMateController = TextEditingController();
   final _notesController = TextEditingController();
+
+  String ddValue = status.first;
 
   Future<void> _addBin() async {
     // final isValid = formKey.currentState!.validate();
@@ -32,22 +38,14 @@ class _AddBinAdminState extends State<AddBinAdmin> {
       _binAddressController.text,
     );
 
-    Map<String, dynamic> binInfoMap = {
-      "binName": _binNameController.text,
-      "binAddress": _binAddressController.text,
-      "Lat": latLng!.latitude,
-      "Lng": latLng.longitude,
-      "binMate": _binMateController.text,
-      "notes": _notesController.text,
-    };
-
     MarkerModel binInfo = MarkerModel(
       binName: _binNameController.text,
       binAddress: _binAddressController.text,
-      Lat: latLng.latitude,
+      Lat: latLng!.latitude,
       Lng: latLng.longitude,
       binMate: _binMateController.text,
       notes: _notesController.text,
+      status: ddValue,
     );
 
     try {
@@ -100,6 +98,7 @@ class _AddBinAdminState extends State<AddBinAdmin> {
                         decoration: const InputDecoration(
                           labelText: 'Notes: e.g. Bin, password',
                         )),
+                    statusDropDown(),
                     const SizedBox(
                       height: 15,
                     ),
@@ -119,5 +118,41 @@ class _AddBinAdminState extends State<AddBinAdmin> {
                 ))
           ],
         ));
+  }
+
+  Row statusDropDown() {
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
+      const Text(
+        'Bin Status: ',
+        style: TextStyle(
+          fontSize: 20.0,
+        ),
+      ),
+      const SizedBox(
+        width: 10,
+      ),
+      // DROPDOWN OPTIONS
+      DropdownButton<String>(
+        borderRadius: BorderRadius.circular(15),
+        value: ddValue,
+        icon: const Icon(Icons.arrow_downward, color: Colors.green),
+        style: const TextStyle(color: Colors.black),
+        underline: Container(
+          height: 2,
+          color: Colors.grey,
+        ),
+        items: status.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onChanged: (value) {
+          setState(() {
+            ddValue = value!;
+          });
+        },
+      ),
+    ]);
   }
 }

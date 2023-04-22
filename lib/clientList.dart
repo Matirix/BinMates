@@ -100,10 +100,10 @@ class CardTemplate extends StatelessWidget {
           // This could be an image over here
           children: const <Widget>[Icon(Icons.person)],
         ),
-        title: Text(marker.binName),
+        title: Text(marker.binAddress),
         subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[Text(marker.binAddress), Text(marker.binName)]),
+            children: <Widget>[Text(marker.binName), Text(marker.status)]),
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
           // Navigator.pushNamed(context, '/clientDetails', arguments: {

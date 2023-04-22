@@ -9,6 +9,7 @@ class MarkerModel {
   String binName;
   String binMate;
   String notes;
+  String status;
   Marker? marker;
 
   MarkerModel(
@@ -18,6 +19,7 @@ class MarkerModel {
       required this.binName,
       required this.binMate,
       required this.notes,
+      required this.status,
       this.marker});
 
   factory MarkerModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,7 @@ class MarkerModel {
       binName: json['binName'],
       binMate: json['binMate'],
       notes: json['notes'],
+      status: json['status'],
     );
   }
 
@@ -45,6 +48,7 @@ class MarkerModel {
       "binName": binName,
       "binMate": binMate,
       "notes": notes,
+      "status": status,
     };
   }
 }
