@@ -5,6 +5,7 @@ import 'package:binmatesapp/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'Utils.dart';
 import 'clientList.dart';
 import 'signin.dart';
 
@@ -14,6 +15,9 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
+// Used to login to the app without context
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -21,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: Utils.messengerKey,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -41,7 +46,7 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const NavBar();
+            return const MapScreen();
           } else {
             return const Login();
           }
@@ -49,7 +54,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/Navbar': (context) => const NavBar(),
-        '/bins': (context) => MapScreen(),
+        '/bins': (context) => const MapScreen(),
         '/clientList': (context) => const ClientList(),
         '/clientDetails': (context) => const ClientDetails(),
         '/login': (context) => const Login(),

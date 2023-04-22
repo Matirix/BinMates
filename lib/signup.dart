@@ -1,3 +1,5 @@
+import 'package:binmatesapp/Utils.dart';
+import 'package:binmatesapp/main.dart';
 import 'package:binmatesapp/signIn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,13 +24,6 @@ class _SignUpState extends State<SignUp> {
   final _accessCodeController = TextEditingController();
 
   Future<void> _signUp() async {
-    //   String firstName = _firstNameController.text;
-    // String lastName = _lastNameController.text;
-    // String email = _emailController.text;
-    // String phoneNumber = _phoneNumberController.text;
-    // String password = _passwordController.text;
-    // String accessCode = _accessCodeController.text;
-
     try {
       await Auth().signUp(
           email: _emailController.text,
@@ -37,8 +32,10 @@ class _SignUpState extends State<SignUp> {
           lastName: _lastNameController.text,
           phoneNumber: _phoneNumberController.text,
           accessCode: _accessCodeController.text);
+
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
-      print(e.message);
+      Utils.showSnackBar(e.message!);
     }
   }
 
@@ -153,11 +150,6 @@ class _SignUpState extends State<SignUp> {
                   ),
                   onPressed: () async {
                     await _signUp();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const NavBar()
-                            // builder: (context) => const ClientDetails(),
-                            ));
                   },
                   child: const Text('Sign Up'),
                 ),

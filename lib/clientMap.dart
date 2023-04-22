@@ -81,7 +81,7 @@ class _MapScreenState extends State<MapScreen> {
             child: Container(
               alignment: Alignment.center,
               child: Text(
-                user?.email ?? 'No user',
+                user?.displayName ?? 'No user',
                 style: const TextStyle(
                   fontSize: 20,
                 ),

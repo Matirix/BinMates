@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'Utils.dart';
+import 'main.dart';
 import 'navBar.dart';
 import 'dart:developer';
 import 'auth.dart';
@@ -20,11 +22,24 @@ class _LoginState extends State<Login> {
   final _passwordController = TextEditingController();
 
   Future<void> signIn() async {
+    /**
+     * Sign in Function
+     */
+
+    // Broken show dialog
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) => const Center(child: CircularProgressIndicator()),
+    );
+
     try {
       await Auth().signIn(
           email: _emailController.text, password: _passwordController.text);
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
-      SnackBar(content: Text(e.message!));
+      // TODO SnackBar Not Displaying
+      Utils.showSnackBar(e.message);
     }
   }
 
@@ -83,22 +98,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              SizedBox(
-                width: 100,
-                height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00AD00),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                  ),
-                  onPressed: () async {
-                    await signIn();
-                  },
-                  child: const Text('Login'),
-                ),
-              ),
+              loginButton(), // Login Button
               const SizedBox(height: 10.0),
               const SizedBox(
                 height: 20.0,
@@ -113,21 +113,55 @@ class _LoginState extends State<Login> {
                 ),
               ),
               const SizedBox(height: 5.0),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/signup');
-                },
-                child: const Text(
-                  'Sign Up',
-                  style: TextStyle(
-                    color: Colors.blue,
-                  ),
-                ),
-              )
+              const SignUpButton()
             ],
           ),
         ),
       ]),
+    );
+  }
+
+  SizedBox loginButton() {
+    /**
+     * Login Button
+     */
+    return SizedBox(
+      width: 100,
+      height: 50,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF00AD00),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+        ),
+        onPressed: () async {
+          await signIn();
+        },
+        child: const Text('Login'),
+      ),
+    );
+  }
+}
+
+class SignUpButton extends StatelessWidget {
+  /// Sign Up Button
+  const SignUpButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/signup');
+      },
+      child: const Text(
+        'Sign Up',
+        style: TextStyle(
+          color: Colors.blue,
+        ),
+      ),
     );
   }
 }
