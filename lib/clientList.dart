@@ -23,7 +23,7 @@ class _ClientListState extends State<ClientList> {
   }
 
   void loadBins() {
-    DBInterface().getBinInfo().then((value) {
+    DBInterface().getBins().then((value) {
       setState(() {
         bins = value;
       });

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -22,10 +23,34 @@ class MarkerModel {
       required this.status,
       this.marker});
 
+  getMarker() {
+    /**
+     * This function returns the marker object
+     */
+    return marker;
+  }
+
   factory MarkerModel.fromJson(Map<String, dynamic> json) {
     /**
      * This function converts the JSON object from the database into a MarkerModel object
      */
+
+    Marker? marker;
+    Text details = Text(json['binMate'] +
+        '\n' +
+        json['notes'] +
+        '\n' +
+        json['status'].toString());
+
+    marker = Marker(
+      markerId: MarkerId(json['binAddress']),
+      position: LatLng(json['Lat'], json['Lng']),
+      infoWindow: InfoWindow(
+        title: json['binName'],
+        snippet: details.data,
+      ),
+    );
+
     return MarkerModel(
       binAddress: json['binAddress'],
       Lat: json['Lat'],
@@ -34,6 +59,7 @@ class MarkerModel {
       binMate: json['binMate'],
       notes: json['notes'],
       status: json['status'],
+      marker: marker,
     );
   }
 

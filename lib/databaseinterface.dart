@@ -45,7 +45,7 @@ class DBInterface {
     return FirebaseFirestore.instance.collection("users").doc(userId).get();
   }
 
-  Future<List> getBinInfo() async {
+  Future<List> getBins() async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('bins').get();
     List binList = querySnapshot.docs

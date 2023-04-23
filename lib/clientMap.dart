@@ -1,3 +1,4 @@
+import 'package:binmatesapp/databaseinterface.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,7 +14,7 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   final user = FirebaseAuth.instance.currentUser;
-  int index = 0;
+  List bins = [];
   final Set<Marker> _markers = {};
   final Set<Marker> _selectedMarkers = {};
   Marker? _selectedMarker;
@@ -24,47 +25,61 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
+  void loadMarkers() {
+    DBInterface().getBins().then((value) {
+      setState(() {
+        bins = value.map((bin) => bin.getMarker()).toList();
+        bins.asMap().forEach((index, marker) {
+          _markers.add(marker);
+          _selectedMarkers.add(marker);
+          // marker.onTap = () => _onMarkerTapped(marker);
+        });
+      });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    loadMarkers();
 
     // Add your markers to the Set here
-    _markers.add(Marker(
-      markerId: const MarkerId('marker1'),
-      position: const LatLng(49.3255, -123.133568),
-      infoWindow: const InfoWindow(
-        title: 'Marker 1',
-        snippet: 'Address',
-      ),
-      onTap: () => _onMarkerTapped(_markers.elementAt(0)),
-    ));
-    _markers.add(Marker(
-      markerId: const MarkerId('marker2'),
-      position: const LatLng(49.4455, -123.133568),
-      infoWindow: const InfoWindow(
-        title: 'Marker 2',
-        snippet: 'Address',
-      ),
-      onTap: () => _onMarkerTapped(_markers.elementAt(1)),
-    ));
-    _markers.add(Marker(
-      markerId: const MarkerId('marker3'),
-      position: const LatLng(49.4255, -123.133568),
-      infoWindow: const InfoWindow(
-        title: 'Marker 3',
-        snippet: 'Address',
-      ),
-      onTap: () => _onMarkerTapped(_markers.elementAt(2)),
-    ));
-    _markers.add(Marker(
-      markerId: const MarkerId('marker4'),
-      position: const LatLng(49.4355, -123.133568),
-      infoWindow: const InfoWindow(
-        title: 'Marker 4',
-        snippet: 'Address',
-      ),
-      onTap: () => _onMarkerTapped(_markers.elementAt(3)),
-    ));
+    // _markers.add(Marker(
+    //   markerId: const MarkerId('marker1'),
+    //   position: const LatLng(49.3255, -123.133568),
+    //   infoWindow: const InfoWindow(
+    //     title: 'Marker 1',
+    //     snippet: 'Address',
+    //   ),
+    //   onTap: () => _onMarkerTapped(_markers.elementAt(0)),
+    // ));
+    // _markers.add(Marker(
+    //   markerId: const MarkerId('marker2'),
+    //   position: const LatLng(49.4455, -123.133568),
+    //   infoWindow: const InfoWindow(
+    //     title: 'Marker 2',
+    //     snippet: 'Address',
+    //   ),
+    //   onTap: () => _onMarkerTapped(_markers.elementAt(1)),
+    // ));
+    // _markers.add(Marker(
+    //   markerId: const MarkerId('marker3'),
+    //   position: const LatLng(49.4255, -123.133568),
+    //   infoWindow: const InfoWindow(
+    //     title: 'Marker 3',
+    //     snippet: 'Address',
+    //   ),
+    //   onTap: () => _onMarkerTapped(_markers.elementAt(2)),
+    // ));
+    // _markers.add(Marker(
+    //   markerId: const MarkerId('marker4'),
+    //   position: const LatLng(49.4355, -123.133568),
+    //   infoWindow: const InfoWindow(
+    //     title: 'Marker 4',
+    //     snippet: 'Address',
+    //   ),
+    //   onTap: () => _onMarkerTapped(_markers.elementAt(3)),
+    // ));
     // Add any other markers you want here.
   }
 
@@ -88,19 +103,6 @@ class _MapScreenState extends State<MapScreen> {
               ),
             ),
           ),
-          // Expanded(
-          //   flex: 1,
-          //   child: ListView.builder(
-          //     itemCount: _markers.length,
-          //     itemBuilder: (context, index) {
-          //       return ListTile(
-          //         title: Text(_markers.elementAt(index).infoWindow.title!),
-          //         subtitle: Text(_markers.elementAt(index).infoWindow.snippet!),
-          //         onTap: () => _onMarkerTapped(_markers.elementAt(index)),
-          //       );
-          //     },
-          //   ),
-          // ),
           Expanded(
             flex: 1,
             child: Container(
@@ -140,11 +142,8 @@ class _MapScreenState extends State<MapScreen> {
             flex: 1,
             // Use the selectedmarkers to view the selected marker's info when someone presses the marker
             child: ListView.builder(
-              // separatorBuilder: (context, index) => const SizedBox(
-              //   height: 5,
-              // ),
               itemBuilder: (context, index) {
-                return availableRoutesToBeTaken(index);
+                return binCard(index);
               },
               itemCount: _selectedMarkers.length,
             ),
@@ -171,7 +170,10 @@ class _MapScreenState extends State<MapScreen> {
     );
   }
 
-  Padding availableRoutesToBeTaken(int index) {
+  Padding binCard(int index) {
+    /**
+     * A card for each bin!
+     */
     return Padding(
       padding: const EdgeInsets.only(left: 12, right: 12, bottom: 5),
       child: ListTile(
