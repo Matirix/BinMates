@@ -14,7 +14,10 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   final user = FirebaseAuth.instance.currentUser;
+  int index = 0;
+  // Bins specific
   List bins = [];
+  // For Markers
   final Set<Marker> _markers = {};
   final Set<Marker> _selectedMarkers = {};
   Marker? _selectedMarker;
@@ -22,6 +25,14 @@ class _MapScreenState extends State<MapScreen> {
   void _onMarkerTapped(Marker marker) {
     setState(() {
       _selectedMarkers.add(marker);
+    });
+  }
+
+  void loadBins() {
+    DBInterface().getBins().then((value) {
+      setState(() {
+        bins = value;
+      });
     });
   }
 
@@ -42,6 +53,7 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     loadMarkers();
+    loadBins();
 
     // Add your markers to the Set here
     // _markers.add(Marker(
@@ -96,7 +108,7 @@ class _MapScreenState extends State<MapScreen> {
             child: Container(
               alignment: Alignment.center,
               child: Text(
-                user?.displayName ?? 'No user',
+                "Hello, ${user?.displayName ?? 'No User'}",
                 style: const TextStyle(
                   fontSize: 20,
                 ),
@@ -130,7 +142,7 @@ class _MapScreenState extends State<MapScreen> {
             child: Container(
               alignment: Alignment.center,
               child: Text(
-                'Selected Routes: '
+                'Bins: '
                 '${_selectedMarkers.length}',
                 style: const TextStyle(
                   fontSize: 20,
@@ -156,7 +168,6 @@ class _MapScreenState extends State<MapScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        // TODO: Add the selected markers to user's Route
                         _selectedMarkers.clear();
                       });
                     },
@@ -174,6 +185,9 @@ class _MapScreenState extends State<MapScreen> {
     /**
      * A card for each bin!
      */
+
+    final selected_marker = bins.elementAt(index);
+
     return Padding(
       padding: const EdgeInsets.only(left: 12, right: 12, bottom: 5),
       child: ListTile(
@@ -193,20 +207,27 @@ class _MapScreenState extends State<MapScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  // TextButton(
+                  //     onPressed: () {
+                  //       setState(() {
+                  //         _selectedMarkers
+                  //             .remove(_selectedMarkers.elementAt(index));
+                  //       });
+                  //     },
+                  //     child: Text('${selected_marker.status}')),
+                  Text('Bin Status: ${selected_marker.status}'),
+                  const SizedBox(width: 10),
                   TextButton(
                     onPressed: () {
                       setState(() {
-                        _selectedMarkers
-                            .remove(_selectedMarkers.elementAt(index));
-                      });
-                    },
-                    child: const Text('Remove'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _selectedMarkers
-                            .remove(_selectedMarkers.elementAt(index));
+                        Navigator.pushNamed(context, '/clientDetails',
+                            arguments: {
+                              'name': selected_marker.binName,
+                              'address': selected_marker.binAddress,
+                              'longitude': selected_marker.Lng,
+                              'latitude': selected_marker.Lat,
+                              'status': selected_marker.status,
+                            });
                       });
                     },
                     child: const Text('Details'),

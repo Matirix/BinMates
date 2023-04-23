@@ -23,6 +23,9 @@ class _ClientListState extends State<ClientList> {
   }
 
   void loadBins() {
+    /**
+     * This is where we will load the bins from the database
+     */
     DBInterface().getBins().then((value) {
       setState(() {
         bins = value;
@@ -30,38 +33,11 @@ class _ClientListState extends State<ClientList> {
     });
   }
 
-  List<Client> clients = [
-    Client(
-        id: 1,
-        name: 'John',
-        email: 'john@email.com',
-        phone: '1234567890',
-        address: '123 Main St',
-        longitude: -122.803,
-        latitude: 49.3255,
-        garbage: "Unavailable"),
-    Client(
-        id: 2,
-        name: 'Jane',
-        email: 'Jane@emai.com',
-        phone: '1234567890',
-        address: '123 Main St',
-        longitude: 123.133568,
-        latitude: 49.3255,
-        garbage: "Available "),
-    Client(
-        id: 3,
-        name: 'Joe',
-        email: 'Joe@email.com',
-        phone: '1234567890',
-        address: '123 Main St',
-        longitude: -123.116226,
-        latitude: 49.346292,
-        garbage: "Finished by"),
-  ];
-
-  Widget clientCardTemplate(client) {
-    return CardTemplate(marker: client);
+  Widget binCardTemplate(marker) {
+    /**
+     * This is where we will create the card template for the client
+     */
+    return CardTemplate(marker: marker);
   }
 
   @override
@@ -78,18 +54,9 @@ class _ClientListState extends State<ClientList> {
   }
 }
 
-// Copy paste this into body for something different.
-// Column(
-// children: clients
-//     .map((client) => CardTemplate(
-//           client: client,
-//         ))
-//     .toList(),
-
 class CardTemplate extends StatelessWidget {
-  final MarkerModel marker;
-
   const CardTemplate({super.key, required this.marker});
+  final MarkerModel marker;
 
   @override
   Widget build(BuildContext context) {
@@ -106,16 +73,13 @@ class CardTemplate extends StatelessWidget {
             children: <Widget>[Text(marker.binName), Text(marker.status)]),
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
-          // Navigator.pushNamed(context, '/clientDetails', arguments: {
-          //   'id': client.id,
-          //   'name': client.name,
-          //   'email': client.email,
-          //   'phone': client.phone,
-          //   'address': client.address,
-          //   'longitude': client.longitude,
-          //   'latitude': client.latitude,
-          //   'garbage': client.garbage,
-          // });
+          Navigator.pushNamed(context, '/clientDetails', arguments: {
+            'name': marker.binName,
+            'address': marker.binAddress,
+            'longitude': marker.Lng,
+            'latitude': marker.Lat,
+            'status': marker.status,
+          });
         },
       ),
     );

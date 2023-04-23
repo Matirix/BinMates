@@ -2,6 +2,7 @@ import 'package:binmatesapp/customAppBar.dart';
 import 'package:binmatesapp/databaseinterface.dart';
 import 'package:binmatesapp/main.dart';
 import 'package:binmatesapp/models/marker_model.dart';
+import 'package:binmatesapp/navBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -52,7 +53,6 @@ class _AddBinAdminState extends State<AddBinAdmin> {
       await DBInterface().addBinInfo(
         binInfo,
       );
-      navigatorKey.currentState!.popUntil((route) => route.isFirst);
     } catch (e) {
       print(e);
     }
@@ -111,6 +111,12 @@ class _AddBinAdminState extends State<AddBinAdmin> {
                       ),
                       onPressed: () async {
                         await _addBin();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const NavBar(),
+                          ),
+                        );
                       },
                       child: const Text('Add Bin'),
                     ),

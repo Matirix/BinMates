@@ -10,16 +10,14 @@ class ClientDetails extends StatefulWidget {
 }
 
 const List<String> statusList = <String>[
-  'Unavailable',
-  'Available',
+  'To-do',
   'In-progress',
+  'Uploaded',
   'Completed'
 ];
 
 class _ClientDetailsState extends State<ClientDetails> {
   Map clientData = {};
-
-  String dropdownValue = statusList.first;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,7 @@ class _ClientDetailsState extends State<ClientDetails> {
                 children: <Widget>[
                   const SizedBox(width: 20.0),
                   Text(
-                    "${clientData['address']}",
+                    "${clientData['name']}",
                     style: const TextStyle(
                       fontSize: 30.0,
                       fontWeight: FontWeight.bold,
@@ -59,21 +57,21 @@ class _ClientDetailsState extends State<ClientDetails> {
                       // fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 20.0),
-                  Text(
-                    "Email: ${clientData['email']}",
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                      // fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 20.0),
-                  Text(
-                    "Phone: ${clientData['phone']}",
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                    ),
-                  ),
+                  // const SizedBox(height: 20.0),
+                  // Text(
+                  //   "Email: ${clientData['email']}",
+                  //   style: const TextStyle(
+                  //     fontSize: 20.0,
+                  //     // fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 20.0),
+                  // Text(
+                  //   "Phone: ${clientData['phone']}",
+                  //   style: const TextStyle(
+                  //     fontSize: 20.0,
+                  //   ),
+                  // ),
                   const SizedBox(height: 20.0),
                   const Divider(
                     thickness: 2.0,
@@ -81,7 +79,7 @@ class _ClientDetailsState extends State<ClientDetails> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  // GARBAGE AVAILABILITY
+                  // // GARBAGE AVAILABILITY
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
@@ -91,29 +89,12 @@ class _ClientDetailsState extends State<ClientDetails> {
                             fontSize: 20.0,
                           ),
                         ),
-                        // DROPDOWN OPTIONS
-                        DropdownButton<String>(
-                          borderRadius: BorderRadius.circular(15),
-                          value: dropdownValue,
-                          icon: const Icon(Icons.arrow_downward,
-                              color: Colors.green),
-                          style: const TextStyle(color: Colors.black),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.grey,
+                        const SizedBox(width: 20.0),
+                        Text(
+                          "${clientData['status']}",
+                          style: const TextStyle(
+                            fontSize: 20.0,
                           ),
-                          items: statusList
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              dropdownValue = value!;
-                            });
-                          },
                         ),
                       ]),
                   const SizedBox(height: 20.0),
