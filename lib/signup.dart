@@ -3,10 +3,11 @@ import 'package:binmatesapp/main.dart';
 import 'package:binmatesapp/signIn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'databaseinterface.dart';
 import 'package:flutter/src/widgets/container.dart';
+import 'screenNav.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'auth.dart';
-import 'navBar.dart';
+import 'models/user_model.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -31,11 +32,13 @@ class _SignUpState extends State<SignUp> {
           firstName: _firstNameController.text,
           lastName: _lastNameController.text,
           phoneNumber: _phoneNumberController.text,
-          accessCode: _accessCodeController.text);
-
-      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+          accessCode: _accessCodeController.text,
+          role: 'BinMate');
+      Utils.showSnackBar("Successfully signed up!", Colors.green);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Login()));
     } on FirebaseAuthException catch (e) {
-      Utils.showSnackBar(e.message!);
+      Utils.showSnackBar(e.message!, Colors.red);
     }
   }
 

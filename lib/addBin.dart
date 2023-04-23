@@ -2,7 +2,7 @@ import 'package:binmatesapp/customAppBar.dart';
 import 'package:binmatesapp/databaseinterface.dart';
 import 'package:binmatesapp/main.dart';
 import 'package:binmatesapp/models/marker_model.dart';
-import 'package:binmatesapp/navBar.dart';
+import 'screenNav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -53,8 +53,9 @@ class _AddBinAdminState extends State<AddBinAdmin> {
       await DBInterface().addBinInfo(
         binInfo,
       );
+      Utils.showSnackBar('Bin added successfully', Colors.green);
     } catch (e) {
-      print(e);
+      Utils.showSnackBar(e.toString(), Colors.red);
     }
   }
 

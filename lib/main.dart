@@ -1,13 +1,14 @@
-import 'package:binmatesapp/clientDetails.dart';
-import 'package:binmatesapp/clientMap.dart';
-import 'package:binmatesapp/navBar.dart';
+import 'package:binmatesapp/binDetails.dart';
+import 'package:binmatesapp/binMap.dart';
+import 'package:binmatesapp/screenNav.dart';
 import 'package:binmatesapp/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'screenNav.dart';
 import 'Utils.dart';
 import 'addBin.dart';
-import 'clientList.dart';
+import 'binList.dart';
 import 'signin.dart';
 
 Future<void> main() async {

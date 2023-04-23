@@ -3,12 +3,11 @@ import 'package:binmatesapp/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
+import 'databaseinterface.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'Utils.dart';
 import 'main.dart';
-import 'navBar.dart';
 import 'dart:developer';
-import 'auth.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -39,7 +38,7 @@ class _LoginState extends State<Login> {
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
       // TODO SnackBar Not Displaying
-      Utils.showSnackBar(e.message);
+      Utils.showSnackBar(e.message, Colors.red);
     }
   }
 

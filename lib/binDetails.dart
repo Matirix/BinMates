@@ -57,14 +57,14 @@ class _ClientDetailsState extends State<ClientDetails> {
                       // fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // const SizedBox(height: 20.0),
-                  // Text(
-                  //   "Email: ${clientData['email']}",
-                  //   style: const TextStyle(
-                  //     fontSize: 20.0,
-                  //     // fontWeight: FontWeight.bold,
-                  //   ),
-                  // ),
+                  const SizedBox(height: 20.0),
+                  Text(
+                    "Notes: ${clientData['notes']}",
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                      // fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   // const SizedBox(height: 20.0),
                   // Text(
                   //   "Phone: ${clientData['phone']}",

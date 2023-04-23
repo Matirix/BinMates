@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'clientList.dart';
-import 'clientMap.dart';
+import 'binList.dart';
+import 'binMap.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -39,7 +39,7 @@ class _NavBarState extends State<NavBar> {
               ),
               NavigationDestination(
                 icon: Icon(Icons.arrow_forward_ios),
-                label: "Routes",
+                label: "My Bins",
                 selectedIcon: Icon(Icons.arrow_forward_ios_outlined),
               ),
             ]),

@@ -1,7 +1,6 @@
 import 'package:binmatesapp/customAppBar.dart';
 import 'package:binmatesapp/databaseinterface.dart';
 import 'package:flutter/material.dart';
-import 'client.dart';
 import 'models/marker_model.dart';
 
 // My routes class

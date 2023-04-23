@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:binmatesapp/models/marker_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'models/user_model.dart';
 
 class DBInterface {
   Future addUserInfo(String userId, Map<String, dynamic> userInfoMap) async {
@@ -52,5 +55,63 @@ class DBInterface {
         .map((doc) => MarkerModel.fromJson(doc.data() as Map<String, dynamic>))
         .toList();
     return binList;
+  }
+}
+
+class Auth {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  User? get currentUser => _firebaseAuth.currentUser;
+
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+
+  Future<String> signIn(
+      {required String email, required String password}) async {
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return "Signed in";
+    } on FirebaseAuthException catch (e) {
+      return e.message!;
+    }
+  }
+
+  Future<void> signUp(
+      {required String email,
+      required String password,
+      String? firstName,
+      String? lastName,
+      String? phoneNumber,
+      String? accessCode,
+      String? role}) async {
+    UserCredential userCredential = await _firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password);
+    // Updating Display Name
+    await userCredential.user!.updateProfile(displayName: firstName);
+
+    UserModel userModel = UserModel(
+      uid: userCredential.user!.uid,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phoneNumber,
+      accessCode: accessCode,
+      role: role,
+    );
+
+    // Map<String, dynamic> userInfoMap = {
+    //   "firstName": firstName,
+    //   "lastName": lastName,
+    //   "email": email,
+    //   "phoneNumber": phoneNumber,
+    //   "accessCode": accessCode,
+    // };
+
+    await DBInterface()
+        .addUserInfo(userCredential.user!.uid, userModel.toJson());
+  }
+
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
   }
 }
