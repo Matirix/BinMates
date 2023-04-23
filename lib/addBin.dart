@@ -19,7 +19,6 @@ class AddBinAdmin extends StatefulWidget {
 
 //Drop down menu
 List<String> status = ['To-do', 'In-progress', 'Uploaded', 'Completed'];
-// List<String> status = ['To-x', 'In-', 'x', 'y'];
 
 class _AddBinAdminState extends State<AddBinAdmin> {
   final formKey = GlobalKey<FormState>();
@@ -31,6 +30,10 @@ class _AddBinAdminState extends State<AddBinAdmin> {
   String ddValue = status.first;
 
   Future<void> _addBin() async {
+    /**
+     * Add a bin to the database
+     */
+    // TODO Add form validation with the TextFormFields
     // final isValid = formKey.currentState!.validate();
     // if (!isValid) {
     //   return;

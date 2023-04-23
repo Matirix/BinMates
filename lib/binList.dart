@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'models/marker_model.dart';
 
 // My routes class
-class ClientList extends StatefulWidget {
-  const ClientList({super.key});
+class BinList extends StatefulWidget {
+  const BinList({super.key});
 
   @override
-  State<ClientList> createState() => _ClientListState();
+  State<BinList> createState() => _BinListState();
 }
 
-class _ClientListState extends State<ClientList> {
+class _BinListState extends State<BinList> {
   // static const IconData circle_sharp =
   //     IconData(0xe861, fontFamily: 'MaterialIcons');
   List bins = [];
@@ -72,7 +72,7 @@ class CardTemplate extends StatelessWidget {
             children: <Widget>[Text(marker.binName), Text(marker.status)]),
         trailing: const Icon(Icons.arrow_forward_ios),
         onTap: () {
-          Navigator.pushNamed(context, '/clientDetails', arguments: {
+          Navigator.pushNamed(context, '/binDetails', arguments: {
             'name': marker.binName,
             'address': marker.binAddress,
             'longitude': marker.Lng,

@@ -2,11 +2,11 @@ import 'package:binmatesapp/customAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class ClientDetails extends StatefulWidget {
-  const ClientDetails({super.key});
+class BinDetails extends StatefulWidget {
+  const BinDetails({super.key});
 
   @override
-  State<ClientDetails> createState() => _ClientDetailsState();
+  State<BinDetails> createState() => _BinDetailsState();
 }
 
 const List<String> statusList = <String>[
@@ -16,7 +16,10 @@ const List<String> statusList = <String>[
   'Completed'
 ];
 
-class _ClientDetailsState extends State<ClientDetails> {
+class _BinDetailsState extends State<BinDetails> {
+  /**
+   * This is where we will load the specific bin information.
+   */
   Map clientData = {};
 
   @override

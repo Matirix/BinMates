@@ -21,21 +21,21 @@ class _MapScreenState extends State<MapScreen> {
   final Set<Marker> _markers = {};
   Marker? _selectedMarker;
 
-  void loadBins() {
-    DBInterface().getBins().then((value) {
-      setState(() {
-        bins = value;
-      });
-    });
-  }
+  void loadBinsAndMarkers() {
+    /**
+     * This is where we will load the bins from the database
+     */
 
-  void loadMarkers() {
-    DBInterface().getBins().then((value) {
+    DBInterface().getBins().then((docs) {
       setState(() {
-        bins = value.map((bin) => bin.getMarker()).toList();
+        // To get the markers from the bins list
+        bins = docs.map((bin) => bin.getMarker()).toList();
+        // converts the list of markers to a map to add to the _markers set.
         bins.asMap().forEach((index, marker) {
           _markers.add(marker);
         });
+        //  To get the bins from the markers list
+        bins = docs;
       });
     });
   }
@@ -46,8 +46,7 @@ class _MapScreenState extends State<MapScreen> {
      * The bins and markers are initialized here. 
      */
     super.initState();
-    loadMarkers();
-    loadBins();
+    loadBinsAndMarkers();
   }
 
   @override
@@ -159,15 +158,14 @@ class _MapScreenState extends State<MapScreen> {
                   TextButton(
                     onPressed: () {
                       setState(() {
-                        Navigator.pushNamed(context, '/clientDetails',
-                            arguments: {
-                              'name': selectedMarker.binName,
-                              'address': selectedMarker.binAddress,
-                              'longitude': selectedMarker.Lng,
-                              'latitude': selectedMarker.Lat,
-                              'status': selectedMarker.status,
-                              'notes': selectedMarker.notes,
-                            });
+                        Navigator.pushNamed(context, '/binDetails', arguments: {
+                          'name': selectedMarker.binName,
+                          'address': selectedMarker.binAddress,
+                          'longitude': selectedMarker.Lng,
+                          'latitude': selectedMarker.Lat,
+                          'status': selectedMarker.status,
+                          'notes': selectedMarker.notes,
+                        });
                       });
                     },
                     child: const Text('Details'),

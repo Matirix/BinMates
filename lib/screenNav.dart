@@ -1,3 +1,4 @@
+import 'package:binmatesapp/binDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -12,11 +13,12 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
+  /**
+   * Bottom navigation bar, to add more screens, add them to screens and add a
+   * NavigationDestination to desitinatons.
+   */
   int index = 0;
-  final screens = [
-    MapScreen(),
-    const ClientList(),
-  ];
+  final screens = [MapScreen(), const BinList(), const BinDetails()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
