@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         },
       ),
       routes: {
-        '/Navbar': (context) => const NavBar(),
+        '/home': (context) => const NavBar(),
         '/bins': (context) => const MapScreen(),
         '/clientList': (context) => const ClientList(),
         '/clientDetails': (context) => const ClientDetails(),

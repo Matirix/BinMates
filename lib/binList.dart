@@ -78,6 +78,7 @@ class CardTemplate extends StatelessWidget {
             'longitude': marker.Lng,
             'latitude': marker.Lat,
             'status': marker.status,
+            'notes': marker.notes,
           });
         },
       ),

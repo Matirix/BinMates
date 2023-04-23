@@ -19,6 +19,7 @@ class DBInterface {
   }
 
   Future<LatLng?> geocodeAddress(String address) async {
+    // Should be replaced with a google plan
     var apiKey = 'AIzaSyA5BimNCeljcJ9mFCvxDQyckRAnIWfh_zo';
     var url =
         'https://maps.googleapis.com/maps/api/geocode/json?key=$apiKey&address=$address';
@@ -65,15 +66,9 @@ class Auth {
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  Future<String> signIn(
-      {required String email, required String password}) async {
-    try {
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      return "Signed in";
-    } on FirebaseAuthException catch (e) {
-      return e.message!;
-    }
+  Future<void> signIn({required String email, required String password}) async {
+    await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
   }
 
   Future<void> signUp(
@@ -98,14 +93,6 @@ class Auth {
       accessCode: accessCode,
       role: role,
     );
-
-    // Map<String, dynamic> userInfoMap = {
-    //   "firstName": firstName,
-    //   "lastName": lastName,
-    //   "email": email,
-    //   "phoneNumber": phoneNumber,
-    //   "accessCode": accessCode,
-    // };
 
     await DBInterface()
         .addUserInfo(userCredential.user!.uid, userModel.toJson());

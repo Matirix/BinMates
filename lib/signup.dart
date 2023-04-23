@@ -25,6 +25,12 @@ class _SignUpState extends State<SignUp> {
   final _accessCodeController = TextEditingController();
 
   Future<void> _signUp() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(child: CircularProgressIndicator()),
+    );
+
     try {
       await Auth().signUp(
           email: _emailController.text,
@@ -35,9 +41,11 @@ class _SignUpState extends State<SignUp> {
           accessCode: _accessCodeController.text,
           role: 'BinMate');
       Utils.showSnackBar("Successfully signed up!", Colors.green);
+      Navigator.of(context).pop();
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const Login()));
     } on FirebaseAuthException catch (e) {
+      Navigator.of(context).pop();
       Utils.showSnackBar(e.message!, Colors.red);
     }
   }

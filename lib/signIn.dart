@@ -25,17 +25,18 @@ class _LoginState extends State<Login> {
      * Sign in Function
      */
 
-    // Broken show dialog
+    // TODO Broken show dialog. It does not dissappear when successfully signed in
     showDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false,
       builder: (context) => const Center(child: CircularProgressIndicator()),
     );
 
     try {
       await Auth().signIn(
           email: _emailController.text, password: _passwordController.text);
-      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      Navigator.of(context).pop();
+      navigatorKey.currentState!.popAndPushNamed('/home');
     } on FirebaseAuthException catch (e) {
       // TODO SnackBar Not Displaying
       Utils.showSnackBar(e.message, Colors.red);
