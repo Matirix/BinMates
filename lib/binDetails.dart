@@ -9,6 +9,7 @@ class BinDetails extends StatefulWidget {
   State<BinDetails> createState() => _BinDetailsState();
 }
 
+/// This is a list to display the status of the bin.
 const List<String> statusList = <String>[
   'To-do',
   'In-progress',
@@ -16,10 +17,8 @@ const List<String> statusList = <String>[
   'Completed'
 ];
 
+/// This is where we will load the specific bin information.
 class _BinDetailsState extends State<BinDetails> {
-  /**
-   * This is where we will load the specific bin information.
-   */
   Map clientData = {};
 
   @override

@@ -7,7 +7,7 @@ import 'databaseinterface.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'screenNav.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'models/user_model.dart';
+import 'models/userModel.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -24,6 +24,7 @@ class _SignUpState extends State<SignUp> {
   final _passwordController = TextEditingController();
   final _accessCodeController = TextEditingController();
 
+  /// Sign up function
   Future<void> _signUp() async {
     showDialog(
       context: context,
@@ -41,7 +42,11 @@ class _SignUpState extends State<SignUp> {
           accessCode: _accessCodeController.text,
           role: 'BinMate');
       Utils.showSnackBar("Successfully signed up!", Colors.green);
+
+      /// To dismiss the loading icon
       Navigator.of(context).pop();
+
+      /// To navigate to the login page
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const Login()));
     } on FirebaseAuthException catch (e) {
@@ -65,8 +70,8 @@ class _SignUpState extends State<SignUp> {
               const SizedBox(height: 100.0),
               const Image(
                 image: AssetImage('images/BinMates-Logos_RGB.png'),
-                width: 300,
-                height: 100,
+                width: 200,
+                height: 50,
               ),
               // const Image(
               //   image: AssetImage('images/Bear.png'),
@@ -78,7 +83,7 @@ class _SignUpState extends State<SignUp> {
                 child: Text(
                   'Sign up as a Bin Mate!',
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 15,
                   ),
                 ),
               ),

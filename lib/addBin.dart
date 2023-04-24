@@ -1,7 +1,7 @@
 import 'package:binmatesapp/customAppBar.dart';
 import 'package:binmatesapp/databaseinterface.dart';
 import 'package:binmatesapp/main.dart';
-import 'package:binmatesapp/models/marker_model.dart';
+import 'package:binmatesapp/models/binModel.dart';
 import 'screenNav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -42,7 +42,8 @@ class _AddBinAdminState extends State<AddBinAdmin> {
       _binAddressController.text,
     );
 
-    MarkerModel binInfo = MarkerModel(
+    /// Create a new bin object
+    Bin binInfo = Bin(
       binName: _binNameController.text,
       binAddress: _binAddressController.text,
       Lat: latLng!.latitude,
@@ -106,23 +107,52 @@ class _AddBinAdminState extends State<AddBinAdmin> {
                     const SizedBox(
                       height: 15,
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF00AD00),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                      ),
-                      onPressed: () async {
-                        await _addBin();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const NavBar(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            // light white color
+                            backgroundColor: const Color(0xFFE5E5E5),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
                           ),
-                        );
-                      },
-                      child: const Text('Add Bin'),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const NavBar(),
+                              ),
+                            );
+                          },
+                          child: const Text('Cancel',
+                              style: TextStyle(color: Colors.black)),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF00AD00),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                          ),
+                          onPressed: () async {
+                            await _addBin();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const NavBar(),
+                              ),
+                            );
+                          },
+                          child: const Text('Add Bin'),
+                        ),
+                      ],
                     ),
                   ],
                 ))

@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
      * Sign in Function
      */
 
-    // TODO Broken show dialog. It does not dissappear when successfully signed in
+    /// Show loading icon
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -46,6 +46,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(children: [
         Container(
           color: const Color(0xFFFFFEF7),
@@ -53,16 +54,16 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const SizedBox(height: 100.0),
+              const SizedBox(height: 50.0),
               const Image(
                 image: AssetImage('images/BinMates-Logos_RGB.png'),
-                width: 300,
+                width: 200,
                 height: 100,
               ),
               const Image(
                 image: AssetImage('images/Bear.png'),
                 width: 300,
-                height: 300,
+                height: 100,
               ),
               const Padding(
                 padding: EdgeInsets.all(10.0),
@@ -81,31 +82,30 @@ class _LoginState extends State<Login> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10))),
-                    hintText: 'Email',
+                    labelText: 'Email',
                   ),
                 ),
               ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                child: TextField(
+                child: TextFormField(
                   controller: _passwordController,
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10))),
-                    hintText: 'Password',
-                  ),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      labelText: 'Password'),
                 ),
               ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 10.0),
               loginButton(), // Login Button
               const SizedBox(height: 10.0),
-              const SizedBox(
-                height: 20.0,
-                child: Divider(
-                  color: Colors.black,
-                ),
-              ),
+              // const SizedBox(
+              //   height: 20.0,
+              //   child: Divider(
+              //     color: Colors.black,
+              //   ),
+              // ),
               const Text(
                 'Forgot Password?',
                 style: TextStyle(
@@ -127,7 +127,7 @@ class _LoginState extends State<Login> {
      */
     return SizedBox(
       width: 100,
-      height: 50,
+      height: 40,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF00AD00),

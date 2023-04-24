@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'databaseinterface.dart';
 
+/// This is for the header of the app
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
 

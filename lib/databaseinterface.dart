@@ -1,13 +1,14 @@
 import 'dart:convert';
-import 'package:binmatesapp/models/marker_model.dart';
+import 'package:binmatesapp/models/binModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import 'models/user_model.dart';
+import 'models/userModel.dart';
 
 class DBInterface {
+  /// Adds the user info to the database
   Future addUserInfo(String userId, Map<String, dynamic> userInfoMap) async {
     return FirebaseFirestore.instance
         .collection("users")
@@ -18,6 +19,8 @@ class DBInterface {
     });
   }
 
+  /// Converts the address into a lat and long using the google maps api
+  /// Returns a LatLng object
   Future<LatLng?> geocodeAddress(String address) async {
     // Should be replaced with a google plan
     var apiKey = 'AIzaSyA5BimNCeljcJ9mFCvxDQyckRAnIWfh_zo';
@@ -36,7 +39,8 @@ class DBInterface {
     return null;
   }
 
-  Future addBinInfo(MarkerModel bin) async {
+  /// Adds a bin to the database
+  Future addBinInfo(Bin bin) async {
     return FirebaseFirestore.instance
         .collection("bins")
         .add(bin.toJson())
@@ -45,15 +49,17 @@ class DBInterface {
     });
   }
 
+  /// Gets the user info from the database
   Future<DocumentSnapshot> getUserInfo(String userId) async {
     return FirebaseFirestore.instance.collection("users").doc(userId).get();
   }
 
+  /// Gets all the bins from the database
   Future<List> getBins() async {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('bins').get();
     List binList = querySnapshot.docs
-        .map((doc) => MarkerModel.fromJson(doc.data() as Map<String, dynamic>))
+        .map((doc) => Bin.fromJson(doc.data() as Map<String, dynamic>))
         .toList();
     return binList;
   }
@@ -66,11 +72,13 @@ class Auth {
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
+  /// Signs in the user
   Future<void> signIn({required String email, required String password}) async {
     await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
   }
 
+  /// Signs up the userand adds the user info to the database
   Future<void> signUp(
       {required String email,
       required String password,
@@ -98,6 +106,7 @@ class Auth {
         .addUserInfo(userCredential.user!.uid, userModel.toJson());
   }
 
+  /// Signs out the user
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }

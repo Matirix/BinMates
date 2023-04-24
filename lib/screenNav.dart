@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'binList.dart';
 import 'binMap.dart';
 
+/// Bottom Navigation bar. Used to switch between screens
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
 
@@ -12,13 +13,11 @@ class NavBar extends StatefulWidget {
   State<NavBar> createState() => _NavBarState();
 }
 
+/// Bottom navigation bar, to add more screens, add them to screens and add a
+/// NavigationDestination to desitinatons.
 class _NavBarState extends State<NavBar> {
-  /**
-   * Bottom navigation bar, to add more screens, add them to screens and add a
-   * NavigationDestination to desitinatons.
-   */
   int index = 0;
-  final screens = [MapScreen(), const BinList(), const BinDetails()];
+  final screens = [const MapScreen(), const BinList(), const BinDetails()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

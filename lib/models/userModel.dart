@@ -1,3 +1,5 @@
+
+/// This file contains the [UserModel] class. This is used for binmate accounts
 class UserModel {
   final String? uid;
   final String? firstName;
@@ -17,6 +19,7 @@ class UserModel {
     this.role,
   });
 
+  /// Converts a [userModel] to a [Map].
   toJson() {
     return {
       'uid': uid,

@@ -1,9 +1,8 @@
 import 'package:binmatesapp/customAppBar.dart';
 import 'package:binmatesapp/databaseinterface.dart';
 import 'package:flutter/material.dart';
-import 'models/marker_model.dart';
+import 'models/binModel.dart';
 
-// My routes class
 class BinList extends StatefulWidget {
   const BinList({super.key});
 
@@ -12,8 +11,6 @@ class BinList extends StatefulWidget {
 }
 
 class _BinListState extends State<BinList> {
-  // static const IconData circle_sharp =
-  //     IconData(0xe861, fontFamily: 'MaterialIcons');
   List bins = [];
   @override
   initState() {
@@ -55,7 +52,7 @@ class _BinListState extends State<BinList> {
 
 class CardTemplate extends StatelessWidget {
   const CardTemplate({super.key, required this.marker});
-  final MarkerModel marker;
+  final Bin marker;
 
   @override
   Widget build(BuildContext context) {
