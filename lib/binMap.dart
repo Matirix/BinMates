@@ -161,6 +161,7 @@ class _MapScreenState extends State<MapScreen> {
                         Navigator.pushNamed(context, '/binDetails', arguments: {
                           'name': selectedMarker.binName,
                           'address': selectedMarker.binAddress,
+                          'binmate': selectedMarker.binMate,
                           'longitude': selectedMarker.Lng,
                           'latitude': selectedMarker.Lat,
                           'status': selectedMarker.status,

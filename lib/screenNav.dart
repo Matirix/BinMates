@@ -17,7 +17,7 @@ class NavBar extends StatefulWidget {
 /// NavigationDestination to desitinatons.
 class _NavBarState extends State<NavBar> {
   int index = 0;
-  final screens = [const MapScreen(), const BinList(), const BinDetails()];
+  final screens = [const MapScreen(), const BinList()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

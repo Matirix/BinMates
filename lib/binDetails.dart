@@ -67,13 +67,13 @@ class _BinDetailsState extends State<BinDetails> {
                       // fontWeight: FontWeight.bold,
                     ),
                   ),
-                  // const SizedBox(height: 20.0),
-                  // Text(
-                  //   "Phone: ${clientData['phone']}",
-                  //   style: const TextStyle(
-                  //     fontSize: 20.0,
-                  //   ),
-                  // ),
+                  const SizedBox(height: 20.0),
+                  Text(
+                    "Assigned to: ${clientData['binmate']}",
+                    style: const TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
                   const SizedBox(height: 20.0),
                   const Divider(
                     thickness: 2.0,
@@ -86,7 +86,7 @@ class _BinDetailsState extends State<BinDetails> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         const Text(
-                          'Garbage: ',
+                          'Status: ',
                           style: TextStyle(
                             fontSize: 20.0,
                           ),

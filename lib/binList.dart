@@ -40,7 +40,7 @@ class _BinListState extends State<BinList> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[200],
-        appBar: const CustomAppBar(title: "Routes"),
+        appBar: const CustomAppBar(title: "My Bins"),
         body: ListView.builder(
           itemCount: bins.length,
           itemBuilder: (context, index) {
@@ -72,6 +72,7 @@ class CardTemplate extends StatelessWidget {
           Navigator.pushNamed(context, '/binDetails', arguments: {
             'name': marker.binName,
             'address': marker.binAddress,
+            'binmate': marker.binMate,
             'longitude': marker.Lng,
             'latitude': marker.Lat,
             'status': marker.status,
